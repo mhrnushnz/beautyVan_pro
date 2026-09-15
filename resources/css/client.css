@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@layer base {
+    /*     فونت های فارسی  حروف     */
+    @font-face {
+        font-family: "Yekan Bakh Medium";
+        src: url("../fonts/Fa/Yekan-Bakh-Fa-05-Medium.woff") format("woff");
+    }
+    @font-face {
+        font-family: "Yekan Bakh Heavy";
+        src: url("../fonts/Fa/Yekan-Bakh-Fa-07-Heavy.woff") format("woff");
+    }
+    /*     فونت های فارسی  عددی     */
+    @font-face {
+        font-family: "Yekan Bakh FaNum Medium";
+        src: url("../fonts/FaNum/Yekan-Bakh-FaNum-05-Medium.woff") format("woff");
+    }
+    @font-face {
+        font-family: "Yekan Bakh FaNum Fat";
+        src: url("../fonts/FaNum/Yekan-Bakh-FaNum-08-Fat.woff") format("woff");
+    }
+}
+
+:root{
+    font-family: "Yekan Bakh Medium", sans-serif;
+    color: var(--text);
+    /* --------------------------رنگ ها-------------------------- */
+    --xfcv : #3e236c;
+    --primary-color : #7C3AED;
+    --purple:  #7C3AED;
+    --light-purple : #A855F7;
+    --pink1: #ff528c;
+    --pink2: #f3447e;
+    --light-pink: #f47299;
+    --text2:#6B7280;
+    --text:#182236;
+    --blue: #16a2ff;
+    --red: #fa2e1f;
+    --orange: #ff9f42;
+    --yellow: #FFD400;
+}
+[x-cloak] {
+    display: none !important;
+}
+.font_num{
+    font-family: "Yekan Bakh Fanum Medium", sans-serif;
+}
+.font_heavy{
+    font-family: "Yekan Bakh Heavy", sans-serif;
+}
+.container{
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.orange{
+    background-image: linear-gradient(210deg, #f49fb9, #f3447e);
+}
+.blue{
+    background-image: linear-gradient(158deg, #c487fb, #7C3AED);
+}
+
+
+/*استایل عنوان های h1...h6 مقاله */
+.article-content {
+    direction: rtl;
+    text-align: right;
+    line-height: 2;
+}
+.article-content p {
+    margin-bottom: 1.25rem;
+    line-height: 2;
+}
+.article-content h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.5;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+.article-content h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1.6;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+.article-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.7;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+}
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    margin: 1.5rem auto;
+}
+.article-content a {
+    color: #7c3aed;
+    text-decoration: underline;
+}
+.article-content ul {
+    list-style-type: disc;
+    padding-right: 1.5rem;
+    margin: 1rem 0;
+}
+.article-content ol {
+    list-style-type: decimal;
+    padding-right: 1.5rem;
+    margin: 1rem 0;
+}
+.article-content li {
+    margin-bottom: 0.5rem;
+}
+.article-content blockquote {
+    border-right: 4px solid #7c3aed;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    background: #f9fafb;
+    border-radius: 0.75rem;
+}

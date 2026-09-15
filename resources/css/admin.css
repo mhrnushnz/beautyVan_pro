@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@layer base {
+    /*     فونت های فارسی  حروف     */
+    @font-face {
+        font-family: "Yekan Bakh Medium";
+        src: url("../fonts/Fa/Yekan-Bakh-Fa-05-Medium.woff") format("woff"),
+        url("../fonts/Fa/Yekan-Bakh-Fa-05-Medium.eot") format("eot");
+    }
+
+    /*     فونت های فارسی  عددی     */
+    @font-face {
+        font-family: "Yekan Bakh FaNum Medium";
+        src: url("../fonts/FaNum/Yekan-Bakh-FaNum-05-Medium.woff") format("woff"),
+        url("../fonts/FaNum/Yekan-Bakh-FaNum-05-Medium.eot") format("eot");
+    }
+}
+
+
+:root{
+    font-family: 'Yekan Bakh Medium', serif;
+    color: #182236;
+    /* --------------------------فونت ها-------------------------- */
+    --font-medium: "Yekan Bakh Medium", sans-serif;
+    --font-Fanum-Medium: "Yekan Bakh Fanum Medium", sans-serif;
+    /* --------------------------رنگ ها-------------------------- */
+    --purple:  #7C3AED;
+    --light-purple : #A855F7;
+    --pink1: #ff528c;
+    --pink2: #f3447e;
+    --light-pink: #f47299;
+    --red: #e33e21;
+    --orange: #ff9f42;
+    --yellow: #FFD400;
+    --green: #49BE78;
+    --blue: #32abc3;
+}
+
+body{
+    font-family: "Yekan Bakh Fanum Medium", sans-serif;
+}
+
+

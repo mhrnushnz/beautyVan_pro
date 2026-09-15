@@ -1,0 +1,238 @@
+/* =========================
+   CKEDITOR PRO EDITOR
+========================= */
+
+
+/* کل ادیتور */
+.ck.ck-editor {
+    width: 100%;
+    direction: rtl;
+}
+
+
+/* =========================
+   TOOLBAR
+========================= */
+
+.ck.ck-editor__top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.ck.ck-toolbar {
+    direction: rtl;
+    background: rgba(249, 250, 251, 0.95) !important;
+    backdrop-filter: blur(10px);
+
+    border: 1px solid #e5e7eb !important;
+    border-radius: 14px 14px 0 0 !important;
+
+    padding: 8px !important;
+
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+}
+
+
+/* دکمه‌های Toolbar */
+.ck.ck-toolbar .ck-button {
+    border-radius: 10px !important;
+    transition: all 0.2s ease;
+}
+
+
+/* Hover دکمه */
+.ck.ck-toolbar .ck-button:hover {
+    background: #ede9fe !important;
+}
+
+
+/* دکمه فعال */
+.ck.ck-toolbar .ck-button.ck-on {
+    background: #ede9fe !important;
+    color: #7c3aed !important;
+}
+
+
+/* =========================
+   EDITOR BODY
+========================= */
+
+.ck.ck-editor__main > .ck-editor__editable {
+    direction: rtl;
+    text-align: right;
+
+    padding: 18px 22px;
+
+    border: 1px solid #e5e7eb !important;
+    border-top: 0 !important;
+
+    border-radius: 0 0 16px 16px !important;
+
+    background: #fff;
+
+    font-size: 15.5px;
+    line-height: 1.9;
+
+    color: #111827;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================
+   FOCUS
+========================= */
+
+.ck.ck-editor__main > .ck-editor__editable.ck-focused {
+    border-color: #7c3aed !important;
+
+    box-shadow:
+        0 0 0 4px rgba(124, 58, 237, 0.12) !important;
+}
+
+
+/* =========================
+   PARAGRAPH
+========================= */
+
+.ck-content p {
+    line-height: 1.9;
+}
+
+
+/* =========================
+   HEADINGS
+========================= */
+
+.ck-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.ck-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   IMAGES
+========================= */
+
+.ck-content .image {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.ck-content .image img {
+    max-width: 100%;
+    height: auto;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   IMAGE CAPTION
+========================= */
+
+.ck-content .image > figcaption {
+    background: #f9fafb;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    padding: 8px 12px;
+
+    border-radius: 0 0 10px 10px;
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.ck-content a {
+    color: #7c3aed;
+    text-decoration: none;
+}
+
+.ck-content a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   LISTS
+========================= */
+
+.ck-content ul,
+.ck-content ol {
+    padding-right: 25px;
+    padding-left: 0;
+}
+
+
+/* =========================
+   BLOCKQUOTE
+========================= */
+
+.ck-content blockquote {
+    border-right: 4px solid #7c3aed;
+    border-left: 0;
+
+    padding-right: 16px;
+    padding-left: 0;
+
+    margin-right: 0;
+
+    color: #4b5563;
+
+    background: #f9fafb;
+
+    border-radius: 8px;
+
+    font-style: normal;
+}
+
+
+/* =========================
+   PLACEHOLDER
+========================= */
+
+.ck.ck-editor__editable.ck-placeholder::before {
+    color: #9ca3af !important;
+    right: 22px !important;
+    left: auto !important;
+}
+
+
+/* =========================
+   DROPDOWNS
+========================= */
+
+.ck.ck-dropdown .ck-dropdown__panel {
+    direction: rtl;
+}
+
+
+/* =========================
+   BALLOON / POPUP
+========================= */
+
+.ck.ck-balloon-panel {
+    direction: rtl;
+}
