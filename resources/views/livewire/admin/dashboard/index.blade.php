@@ -347,10 +347,8 @@
                             <span class="mb-1 text-[11px] text-gray-400">
                             خدمت
                         </span>
-
                         </div>
                     </div>
-
 
                     <div class="flex size-11 items-center justify-center
                             rounded-2xl bg-violet-50 text-violet-600">
