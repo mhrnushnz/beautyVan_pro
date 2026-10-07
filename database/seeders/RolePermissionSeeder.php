@@ -26,8 +26,6 @@ class RolePermissionSeeder extends Seeder
             'create article category', 'edit article category', 'delete article category',
             'view service', 'create service', 'delete service',
         ]);
-
-
         //ب کاربران نیازی نیست دست رسی بدیم
     }
 }

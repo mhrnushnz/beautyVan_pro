@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/css/client.css',])
     @livewireStyles
 </head>
-<body class="font_num bg-gray-300">
+<body class="font_num bg-[#ededed]">
 
 <div class="relative">{{ $slot }}</div>
 

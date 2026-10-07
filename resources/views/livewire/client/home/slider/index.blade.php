@@ -1,5 +1,5 @@
+@if($sliders->isNotEmpty())
 <div class="slider relative overflow-hidden">
-
     <ul class="relative w-full xl:h-[52rem] lg:h-[46rem] md:h-[40rem] sm:h-[36rem] h-[30rem]">
 
         @foreach($sliders as $index => $slider)
@@ -82,8 +82,6 @@
         @endforeach
 
     </ul>
-
-
     {{-- دکمه قبلی --}}
     <button
         type="button"
@@ -100,8 +98,6 @@
     >
         ‹
     </button>
-
-
     {{-- دکمه بعدی --}}
     <button
         type="button"
@@ -118,8 +114,6 @@
     >
         ›
     </button>
-
-
     {{-- نقاط پایین --}}
     <div
         class="slider-dots absolute
@@ -142,5 +136,5 @@
 
         @endforeach
     </div>
-
 </div>
+@endif

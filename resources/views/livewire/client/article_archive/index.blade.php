@@ -1,31 +1,114 @@
 @push('schemas')
-    @foreach($schemas as $schema)
-        <x-schema :data="$schema" />
-    @endforeach
+    @if(!empty($schemas))
+        <script type="application/ld+json">
+            {!! json_encode(
+                $schemas,
+                JSON_UNESCAPED_UNICODE |
+                JSON_UNESCAPED_SLASHES |
+                JSON_PRETTY_PRINT
+            ) !!}
+        </script>
+    @endif
 @endpush
 <div>
     <!-- مسیر  -->
-    <ul class="container mx-auto mt-5 p-1 px-3 rounded-lg flex items-center flex-wrap gap-2 sm:text-[15px] text-[12px]">
+    <ul class="container mx-auto mt-5 p-1 px-3 rounded-lg
+           flex items-center flex-wrap gap-2
+           sm:text-[15px] text-[12px]">
+
+        {{-- خانه --}}
         <li>
-            <a href="{{ route('home') }}" class="hover:text-[#7C3AED] transition-all">خانه</a>
+            <a
+                href="{{ route('home') }}"
+                class="hover:text-[#7C3AED] transition-all"
+            >
+                خانه
+            </a>
         </li>
 
-        <span><svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="gray" class="size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg></span>
 
-        <li>
-            <a href="{{ route('articleArchive') }}" class="hover:text-[#7C3AED] transition-all">مجله آموزشی</a>
+        {{-- فلش --}}
+        <li aria-hidden="true">
+            <svg
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="gray"
+                class="size-3"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+            </svg>
         </li>
 
-        @if($articlecategoryId)
-            <span><svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="gray" class="size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg></span>
-            <li>
-                <a href="{{ route('article_archive', ['slug' => $articlecategoryId->slug]) }}" class="hover:text-[#7C3AED] transition-all">{{ $articlecategoryId->name }}</a>
+
+        {{-- مجله آموزشی --}}
+        <li>
+            <a
+                href="{{ route('articleArchive') }}"
+                class="hover:text-[#7C3AED] transition-all"
+            >
+                مجله آموزشی
+            </a>
+        </li>
+
+
+        {{-- تمام والدها + دسته فعلی --}}
+        @foreach($categoryBreadcrumbs as $breadcrumbCategory)
+
+            {{-- فلش --}}
+            <li aria-hidden="true">
+                <svg
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    stroke="gray"
+                    class="size-3"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 19.5 8.25 12l7.5-7.5"
+                    />
+                </svg>
             </li>
-        @endif
 
+
+            <li>
+
+                @if(!$loop->last)
+
+                    {{-- والدها قابل کلیک --}}
+                    <a
+                        href="{{ route('article_archive', [
+                        'path' => $breadcrumbCategory->full_path
+                    ]) }}"
+                        class="hover:text-[#7C3AED] transition-all"
+                    >
+                        {{ $breadcrumbCategory->name }}
+                    </a>
+
+                @else
+
+                    {{-- دسته فعلی --}}
+                    <span class="font-medium text-[#ff528c]">
+                    {{ $breadcrumbCategory->name }}
+                </span>
+
+                @endif
+
+            </li>
+
+        @endforeach
 
     </ul>
-
 
     <!-- بدنه سایت -->
     <div class="container mx-auto md:mt-8 mt-5">
@@ -90,112 +173,26 @@
                                         دسته‌بندی مقالات
                                     </h2>
 
-                                    <p class="text-gray-400 text-[10px] mt-0.5">
-                                        موضوع موردنظر را انتخاب کنید
-                                    </p>
-
+                                    <p class="text-gray-400 text-[10px] mt-0.5">موضوع موردنظر را انتخاب کنید</p>
                                 </div>
-
                             </div>
 
-
-                            <span class="size-2
-                                     rounded-full
-                                     bg-[#ff528c]">
-                        </span>
-
-                        </div>
-
-
+                        <span class="size-2 rounded-full bg-[#ff528c]"></span></div>
 
                         {{-- Items --}}
                         <div class="p-3">
-
                             @if($articlecategories->count() == 0)
-
-                                <div class="rounded-2xl
-                                        bg-gray-50
-                                        border border-gray-100
-                                        py-8 px-4">
-
-                                    <p class="text-gray-400
-                                          text-center
-                                          text-[12px]">
+                                <div class="rounded-2xl bg-gray-50 border border-gray-100 py-8 px-4">
+                                    <p class="text-gray-400 text-center text-[12px]">
                                         درحال حاظر هیچ دسته بندی ای وجود ندارد
                                     </p>
-
                                 </div>
-
                             @else
-
                                 <ul class="space-y-1">
-
-                                    @foreach($articlecategories as $articleCategory)
-
-                                        <li>
-
-                                            <a href="{{ route('article_archive', [$articleCategory->slug]) }}"
-                                               class="group
-                                                  flex items-center justify-between
-                                                  gap-3
-                                                  px-3 py-2.5
-                                                  rounded-xl
-                                                  text-gray-600
-                                                  lg:text-[13px]
-                                                  text-[12px]
-                                                  hover:bg-[#fff5f8]
-                                                  hover:text-[#cf4070]
-                                                  transition-all duration-300">
-
-
-                                                <div class="flex items-center gap-2.5">
-
-                                                <span class="size-1.5
-                                                             rounded-full
-                                                             bg-gray-300
-                                                             group-hover:bg-[#ff528c]
-                                                             group-hover:scale-125
-                                                             transition-all duration-300">
-                                                </span>
-
-                                                    <span>
-                                                    {{ $articleCategory->name }}
-                                                </span>
-
-                                                </div>
-
-
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                     fill="none"
-                                                     viewBox="0 0 24 24"
-                                                     stroke-width="2"
-                                                     stroke="currentColor"
-                                                     class="size-3.5
-                                                        text-gray-300
-                                                        opacity-0
-                                                        translate-x-1
-                                                        group-hover:opacity-100
-                                                        group-hover:translate-x-0
-                                                        transition-all duration-300">
-
-                                                    <path stroke-linecap="round"
-                                                          stroke-linejoin="round"
-                                                          d="M15.75 19.5 8.25 12l7.5-7.5"/>
-
-                                                </svg>
-
-                                            </a>
-
-                                        </li>
-
-                                    @endforeach
-
+                                    <x-article-category-tree :categories="$articlecategories"/>
                                 </ul>
-
                             @endif
-
                         </div>
-
                     </div>
 
 
@@ -282,7 +279,7 @@
 
                                         <li>
 
-                                            <a href="{{ route('article_client', [$article->slug]) }}"
+                                            <a href="{{ route('article_client', ['path' => $article->articleCategories->full_path, 'slug' => $article->slug]) }}"
                                                class="group
                                                   flex lg:flex-row md:flex-col sm:flex-row flex-row
                                                   lg:items-center
@@ -635,9 +632,9 @@
                                            hover:-translate-y-1.5">
 
 
-                                        <a href="{{ route('article_client', [$article->slug]) }}"
+                                        <a href="{{ route('article_client', ['path' => $article->articleCategories->full_path, 'slug' => $article->slug]) }}"
                                            class="relative block
-                                              xl:h-[24rem]
+                                              xl:h-[24rem]1
                                               lg:h-[20rem]
                                               md:h-[17rem]
                                               sm:h-[17rem]

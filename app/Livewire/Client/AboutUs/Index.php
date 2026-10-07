@@ -1,12 +1,9 @@
 <?php
 namespace App\Livewire\Client\AboutUs;
-use App\Services\SchemaService;
 use App\Services\SeoService;
 use Livewire\Component;
-
 class Index extends Component{
-    public $schemas = [];
-
+    public array $schema = [];
     public function mount(){
         SeoService::index(
             title: 'درباره ما',
@@ -14,25 +11,29 @@ class Index extends Component{
             canonical: route('about_us'),
             image: asset('storage/default/og-about.jpg')
         );
-        $this->schemas = [
-            SchemaService::aboutPage(),
-            SchemaService::organization(),
-            SchemaService::breadcrumb([
+
+        $this->schema = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
                 [
-                    'name' => 'خانه',
-                    'url' => url('/'),
-                ],[
-                    'name' => 'درباره ما',
+                    '@type' => 'AboutPage',
+                    '@id' => route('about_us') . '#webpage',
                     'url' => route('about_us'),
+                    'name' => 'درباره ما',
+                    'description' => 'درباره بیوتی ون و خدمات ما',
                 ],
-            ]),
+
+                [
+                    '@type' => 'Organization',
+                    '@id' => url('/') . '/#organization',
+                    'name' => 'نام بیوتی ون',
+                    'url' => url('/'),
+                ],
+            ],
         ];
     }
 
-
-
-    public function render()
-    {
+    public function render(){
         return view('livewire.client.about_us.index');
     }
 }

@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Services;
-
 use App\Models\Article;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Support\Str;
-
 class SeoAnalyzer
 {
     public static function analyze(Article $article): array

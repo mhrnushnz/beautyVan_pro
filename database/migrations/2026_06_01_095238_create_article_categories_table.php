@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('article_categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parent_id')->nullable()->constrained('article_categories')->nullOnDelete();
             $table->string('name');
             $table->string('slug');
             $table->longText('meta_description');
@@ -24,8 +25,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void{
         Schema::dropIfExists('article_categories');
     }
 };

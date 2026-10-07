@@ -348,7 +348,7 @@
                             خدمت
                         </span>
                         </div>
-                    </div>
+                    </div>p
 
                     <div class="flex size-11 items-center justify-center
                             rounded-2xl bg-violet-50 text-violet-600">

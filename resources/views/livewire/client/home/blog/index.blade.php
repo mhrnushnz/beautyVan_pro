@@ -10,7 +10,7 @@
         <ul class="container grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-5 md:-mt-32 -mt-36 relative z-10">
             @foreach($articles as $article)
                 <li class="lg:h-[21rem] md:h-[19rem] sm:h-[17rem] h-[16rem] overflow-hidden rounded-2xl group shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1.5">
-                    <a href="{{ route('article_client', [$article->slug]) }}"
+                    <a href="{{ route('article_client', ['path' => $article->articleCategories->full_path,'slug'=>$article->slug]) }}"
                        class="relative block h-full overflow-hidden">
                         {{-- تصویر --}}
                         <img src="{{ asset('storage/' . $article->path) }}" alt="{{ $article->title }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">

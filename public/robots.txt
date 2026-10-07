@@ -1,2 +1,12 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Disallow: /p-admin/*
+Disallow: /auth/login
+Disallow: /register
+Disallow: /reserve
+Disallow: /users/*
+Disallow: /logout
+Disallow: /auth/login/forgotPassword
+
+Sitemap: https://YOUR-DOMAIN.com/sitemap.xml

@@ -122,6 +122,25 @@
                 </div>
                 @enderror
             </div>
+
+            {{--     اسکیما     --}}
+            <div>
+                <label class="block font-medium text-gray-600"> اسکیما اختصاصی مقاله: </label>
+                <p class="text-xs text-gray-400 mt-2">
+                    کد JSON-LD اختصاصی این مقاله را وارد کنید.
+                </p>
+                <textarea name="schema" rows="10" placeholder='{
+    "context": "https://schema.org",
+    "@type": "Article",
+    "headline": "عنوان مقاله"
+}'
+                wire:model="schema" type="text" dir="ltr" class="border w-full focus:outline-none mt-4 focus:ring-0w-full border-gray-100 py-1 px-4 rounded-lg bg-black text-green-400"></textarea>
+                @error('schema')
+                <div class="rounded-full mt-2 bg-red-100 px-3 py-2 text-sm text-red-600">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
         </div>
 
 

@@ -5,7 +5,6 @@ use Livewire\Component;
 
 class Index extends Component{
     public $servicesCategories;
-
     public function mount(){
         $this->servicesCategories = ServiceCategory::query()->where('is_active', 1)->get();
     }

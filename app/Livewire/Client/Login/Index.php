@@ -27,13 +27,13 @@ class Index extends Component{
             'email.email' => 'فرمت ایمیل معتبر نیست',
         ]);
 
-
         $user = User::query()->create([
             'name' => $validatedData['name'],
             'phone' => $validatedData['phone'],
             'email' => $validatedData['email'],
             'password' => $validatedData['password'],
         ]);
+
         $user->assignRole('user');     //نقش پیش فرض user
         Auth::login($user, true);//این true برای اینه که اگر کاربر لاگین کرد اطلاعاتش ذخیره شه و دوباره لاگین نکنه
 

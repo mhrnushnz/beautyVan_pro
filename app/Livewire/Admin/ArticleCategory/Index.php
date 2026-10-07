@@ -10,6 +10,7 @@ class Index extends Component{
     public $slug;
     public $meta_description;
     public $name;
+    public $parent_id = null;
     public $articleCategoryId;
 
 
@@ -21,12 +22,24 @@ class Index extends Component{
         $validatedData = $this->validate([
             'name' => 'required|string|max:30',
             'slug' => 'required|string|max:30',
+            'parent_id' => ['nullable','exists:article_categories,id',
+                function ($attribute, $value, $fail) {
+                    if ($this->articleCategoryId && $value && (int) $value === (int) $this->articleCategoryId){
+                        $fail('یک دسته‌بندی نمی‌تواند والد خودش باشد.');
+                    }}],
             'meta_description' => 'required|string|max:200',
         ],[
-            'required' => 'پر کردن فیلد الزامی می باشد',
-            'string' =>'فرمت اشتباه است',
-            'max' =>'حداکثر تعداد کاراکتر ها 30 می باشد',
-            'meta_description' => 'حداکثر تعداد کاراکتر ها 200 می باشد'
+            'name.required' => 'نام دسته‌بندی الزامی است.',
+            'name.string' => 'فرمت نام دسته‌بندی صحیح نیست.',
+            'name.max' => 'نام دسته‌بندی حداکثر 30 کاراکتر باشد.',
+            'slug.required' => 'اسلاگ الزامی است.',
+            'slug.string' => 'فرمت اسلاگ صحیح نیست.',
+            'slug.max' => 'اسلاگ بیش از حد طولانی است.',
+            'slug.unique' => 'این اسلاگ قبلاً استفاده شده است.',
+            'meta_description.required' => 'توضیحات متا الزامی است.',
+            'meta_description.string' => 'فرمت توضیحات متا صحیح نیست.',
+            'meta_description.max' => 'توضیحات متا حداکثر 200 کاراکتر باشد.',
+            'parent_id.exists' => 'دسته‌بندی والد انتخاب‌شده معتبر نیست.',
         ]);
 
         ArticleCategory::query()->updateOrCreate([
@@ -34,10 +47,11 @@ class Index extends Component{
         ],[
             'name' => $validatedData['name'],
             'slug' => $validatedData['slug'],
+            'parent_id' => $validatedData['parent_id'] ?: null,      //چون مقدار پیش فرض داره
             'meta_description' => $validatedData['meta_description'],
         ]);
 
-        $this->reset(['name','slug','meta_description','articleCategoryId']);
+        $this->reset(['name','slug','meta_description','articleCategoryId', 'parent_id']);
         $this->dispatch('toast', type: 'success', message: 'دسته بندی با موفقیت ثبت شد');
     }
 
@@ -46,6 +60,7 @@ class Index extends Component{
         if($article_category){
             $this->name = $article_category->name;
             $this->slug = $article_category->slug;
+            $this->parent_id = $article_category->parent_id;
             $this->meta_description = $article_category->meta_description;
             $this->articleCategoryId = $article_category->id;
         }

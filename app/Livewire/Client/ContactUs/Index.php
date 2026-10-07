@@ -1,11 +1,7 @@
 <?php
-
 namespace App\Livewire\Client\ContactUs;
-
 use App\Models\Contact_us;
-use App\Services\SchemaService;
 use App\Services\SeoService;
-use Artesaos\SEOTools\Traits\SEOTools;
 use Livewire\Component;
 
 class Index extends Component{
@@ -13,7 +9,7 @@ class Index extends Component{
     public $email;
     public $phone;
     public $message;
-    public $schemas = [];
+    public array $schema = [];
 
     public function mount(){
         SeoService::index(
@@ -23,17 +19,27 @@ class Index extends Component{
             image: asset('storage/default/og-contact.jpg')
         );
 
-        $this->schemas = [
-            SchemaService::contactPage(),
-            SchemaService::breadcrumb([
+//اسکیما دستی
+        $this->schema = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
                 [
-                    'name' => 'خانه',
-                    'url' => url('/'),
-                ],[
-                    'name' => 'تماس با ما',
+                    '@type' => 'ContactPage',
+                    '@id' => route('contact_us') . '#webpage',
                     'url' => route('contact_us'),
+                    'name' => 'تماس با ما',
+                    'description' => 'راه‌های ارتباط با بیوتی ون',
                 ],
-            ]),
+
+                [
+                    '@type' => 'Organization',
+                    '@id' => url('/') . '/#organization',
+                    'name' => 'بیوتی ون',
+                    'url' => url('/'),
+                    'telephone' => '۰۹۰۴۴۴۴۴۵۹۷',
+                    'email' => 'ایمیل شرکت',
+                ],
+            ],
         ];
     }
 

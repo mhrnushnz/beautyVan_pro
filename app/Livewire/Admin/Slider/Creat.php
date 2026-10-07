@@ -13,6 +13,7 @@ class Creat extends Component{
     public $short_description;
     public $image;
     public $imageEdit;
+    public $position = 'top';
 
     public function mount($id = null){
         if ($id) {
@@ -22,6 +23,7 @@ class Creat extends Component{
             $this->description = $slider->description;
             $this->short_description = $slider->short_description;
             $this->imageEdit = $slider->path;
+            $this->position = $slider->position;
         }
     }
 
@@ -38,18 +40,27 @@ class Creat extends Component{
 
     public function submit(){
         // 👇 محدودیت تعداد اسلایدر
-        if (!$this->sliderId && Slider::count() >= 5) {
-            $this->dispatch('toast',
-                type: 'error',
-                message: 'ظرفیت اسلایدر تکمیل است (حداکثر ۵ عدد)'
-            );
+        $limits = ['top' => 5, 'center' => 2, 'bottom' => 4,];
+        $positionNames = ['top' => 'اسلایدر', 'center' => 'پوستر', 'bottom' => 'تبلیغات',];
+        $count = Slider::query()->where('position', $this->position)->when($this->sliderId, function ($query) {
+                $query->where('id', '!=', $this->sliderId);})->count();
+
+        if ($count >= $limits[$this->position]) {
+            $this->addError(
+                'position',
+                'ظرفیت بخش ' .
+                $positionNames[$this->position] .
+                ' تکمیل است. حداکثر ' .
+                $limits[$this->position] .
+                ' تصویر مجاز است.');
             return;
         }
 
         $rules = [
         'title' => 'required|string|max:150',
         'description' => 'required|string|max:150',
-        'short_description' => 'required|string|max:150',];
+        'short_description' => 'required|string|max:150',
+        'position' => 'required|in:top,center,bottom',];
 
         // تصویر فقط در ساخت یا وقتی عکس جدید آپلود شده
         if (!$this->sliderId || $this->image) {
@@ -57,7 +68,6 @@ class Creat extends Component{
         }
 
         $validated = $this->validate($rules);
-
         if ($this->image) {
             $imagePath = $this->image->store('sliders', 'public');
         } else {
@@ -65,22 +75,18 @@ class Creat extends Component{
         }
 
         Slider::updateOrCreate(
-            ['id' => $this->sliderId],
-            [
+            ['id' => $this->sliderId
+            ],[
                 'title' => $this->title,
                 'description' => $this->description,
                 'short_description' => $this->short_description,
+                'position' => $this->position,
                 'path' => $imagePath,
             ]
         );
 
         $this->reset();
-
-        $this->dispatch('toast',
-            type: 'success',
-            message: $this->sliderId ? 'اسلایدر ویرایش شد' : 'اسلایدر ثبت شد'
-        );
-
+        $this->dispatch('toast', type: 'success', message: $this->sliderId ? 'اسلایدر ویرایش شد' : 'اسلایدر ثبت شد');
         return redirect()->route('adminSlider');
     }
 

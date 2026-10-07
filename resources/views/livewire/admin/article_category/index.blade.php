@@ -21,13 +21,26 @@
                 </div>
                 @enderror
 
+                <div>
+                    <select name="parent_id" wire:model="parent_id" class="border w-full border-gray-100 focus:outline-none focus:ring-0 py-1 px-4 rounded-full bg-gray-50 text-gray-400">
+                        <option value="" selected>دسته اصلی</option>
+                        @foreach($articleCategories as $articleCategory)
+                            <option value="{{$articleCategory->id}}">{{$articleCategory->name}}</option>
+                        @endforeach
+                    </select>
+                    @error('parent_id')
+                    <div class="rounded-full mt-2 bg-red-100 px-3 py-2 text-sm text-red-600">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
                 <textarea name="meta_description" wire:model="meta_description" wire:key="meta_description-input" type="text" placeholder="توضیحات متا" class="w-full focus:outline-none focus:ring-0 border border-gray-100 py-1 px-4 rounded-2xl bg-gray-50 text-gray-500"></textarea>
                 @error('meta_description')
                 <div class="rounded-full bg-red-100 px-3 py-2 text-sm text-red-600">
                     {{ $message }}
                 </div>
                 @enderror
-
                 <button type="submit" class="w-full cursor-pointer p-1.5 bg-[#ff528c] hover:bg-[#7C3AED] text-white rounded-full">افزودن</button>
             </form>
         </div>
@@ -41,6 +54,7 @@
                         <tr>
                             <th class="p-3 border border-gray-400">شماره</th>
                             <th class="p-3 border border-gray-400">نام</th>
+                            <th class="p-3 border border-gray-400">دسته والد</th>
                             <th class="p-3 border border-gray-400">ویرایش</th>
                             <th class="p-3 border border-gray-400">حذف</th>
                         </tr>
@@ -127,6 +141,13 @@
                                 <tr class="text-gray-500">
                                     <td class="text-center border border-gray-300 p-3">{{$loop->index+1}}</td>
                                     <td class="text-center p-3 border border-gray-300">{{$articleCategory->name}}</td>
+                                    <td class="text-center p-3 border border-gray-300">
+                                        @if($articleCategory->parent_id)
+                                            {{$articleCategory->parent->name}}
+                                        @else
+                                            دسته اصلی
+                                        @endif
+                                    </td>
                                     <td class="border border-gray-300 text-center"><a wire:click.prevent="edit({{$articleCategory->id}})" class="transition-all p-2 text-[#49BE78] hover:bg-[#49BE78] hover:text-white rounded-lg" href="">ویرایش</a></td>
                                     <td class="border border-gray-300 text-center"><a wire:click.prevent="delete({{$articleCategory->id}})" class="transition-all text-[#ff483b] rounded-lg hover:bg-[#ff483b] hover:text-white p-2" href="">حذف</a></td>
                                 </tr>

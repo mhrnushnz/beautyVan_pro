@@ -29,12 +29,14 @@ use App\Livewire\Client\Login\Forgotpassword as ForgotPassword;
 use App\Livewire\Client\Login\Index as LoginClient;
 use App\Livewire\Client\Reserve\Index as Reserve;
 use App\Livewire\Client\Services\Index as ClientService;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 //admin-------------------------------------------------
 
 
-Route::middleware(['auth', 'role:admin|manager'])->group(function () {
+Route::prefix('p-admin')->middleware(['auth', 'role:admin|manager'])->group(function () {
+    Route::get('/', Dashboard::class)->name('adminPanel');
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::get('/users', Users::class)->name('users.index');
@@ -75,10 +77,13 @@ Route::middleware('auth')->group(function () {//ورود ب این صحه حتم
     Route::get('/users/appointments', AppointmentClient::class)->name('clientAppointment');
     Route::get('/logout', LogoutController::class)->name('logOut');
 });
-Route::get('/blogPage/{slug}', ArticleClient::class)->name('article_client');
-Route::get('/blog/{slug}', ArticleArchiveClient::class)->name('article_archive');
-Route::get('/blogArchive', ArticleArchiveClient::class)->name('articleArchive');
+Route::get('/blog/article/{path}/{slug}', ArticleClient::class)->where('path', '.*')->name('article_client');
+Route::get('/blog/archive', ArticleArchiveClient::class)->name('articleArchive');
+Route::get('/blog/archive/{path}', ArticleArchiveClient::class)->where('path', '.*')->name('article_archive');
 Route::get('/about_us', AboutUs::class)->name('about_us');
 Route::get('/contact_us', ContactUs::class)->name('contact_us');
 Route::get('/our_service/{slug}', ClientService::class)->name('our_service');
 Route::get('/our_service', ClientService::class)->name('ourService');
+Route::get('/forgotPassword', ForgotPassword::class)->name('forgot_password');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

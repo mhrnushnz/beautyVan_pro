@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 class Article extends Model{
     protected $guarded = [];
-    protected $casts = ['secondary_keywords' => 'array',];
+    protected $casts = ['secondary_keywords' => 'array', 'schema' => 'array'];
 
     public function submit($validatedData , $articleId, $image ,$editImage){
         $imagePath = $editImage;
@@ -30,6 +30,7 @@ class Article extends Model{
                 'secondary_keywords' => $validatedData['secondary_keywords'],
                 'robots' => $validatedData['robots'],
                 'path' => $imagePath,
+                'schema' => $validatedData['schema'],
             ]
         );
     }

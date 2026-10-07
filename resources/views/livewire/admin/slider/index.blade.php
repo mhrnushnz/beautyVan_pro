@@ -5,10 +5,10 @@
         <!-- عنوان -->
         <h1 class="font-bold text-shadow-md sm:text-[20px] text-[18px]">اسلایدر ها</h1>
         <!-- افزودن -->
-        @if($sliders->count() < 5)
+        @if($sliders->count() < 12)
             <a href="{{ route('adminSliderCreat') }}" class="bg-[#ff528c] text-white rounded-full px-6 py-1.5 sm:text-[16px] text-[12px]">ایجاد اسلایدر</a>
         @else
-            <span class="text-red-500 font-bold">ظرفیت اسلایدر تکمیل است (۵/۵)</span>
+            <span class="text-red-500 font-bold">ظرفیت اسلایدر تکمیل است (11/11)</span>
         @endif
     </div>
 
@@ -23,6 +23,7 @@
                 <th class="p-3 border border-gray-400">عنوان</th>
                 <th class="p-3 border border-gray-400">توضیحات</th>
                 <th class="p-3 border border-gray-400">توضیح کوتاه</th>
+                <th class="p-3 border border-gray-400">جایگاه</th>
                 <th class="p-3 border border-gray-400">ویرایش</th>
                 <th class="p-3 border border-gray-400">حذف</th>
             </tr>
@@ -113,6 +114,15 @@
                         <td class="text-center p-3 border border-gray-300">{{$slider->title}}</td>
                         <td class="text-center p-3 border border-gray-300"> {{ \Illuminate\Support\Str::limit(strip_tags($slider->description), 34) }}</td>
                         <td class="text-center p-3 border border-gray-300"> {{ \Illuminate\Support\Str::limit(strip_tags($slider->short_description), 34) }}</td>
+                        <td class="text-center p-3 border border-gray-300">
+                            @if($slider->position === 'top')
+                                اسلایدر
+                            @elseif($slider->position === 'center')
+                                پوستر
+                            @else
+                                تبلیغات
+                            @endif
+                        </td>
                         <td class="border border-gray-300 text-center"><a class="transition-all p-2 text-[#49BE78] hover:bg-[#49BE78] hover:text-white rounded-lg" href="{{ route('adminSliderCreat', $slider->id) }}">ویرایش</a></td>
                         <td class="transition-all border border-gray-300 text-center"><a wire:click.prevent="delete({{$slider->id}})" wire:confirm="آیا مطمئن هستید؟" class="transition-all text-[#ff483b] rounded-lg hover:bg-[#ff483b] hover:text-white p-2" href="">حذف</a></td>
                     </tr>

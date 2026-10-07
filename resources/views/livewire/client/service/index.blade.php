@@ -1,12 +1,17 @@
 @push('schemas')
-    @foreach($schemas as $schema)
-        <x-schema :data="$schema" />
-    @endforeach
+    @if(!empty($schema))
+        <script type="application/ld+json">
+            {!! json_encode(
+                $schema,
+                JSON_UNESCAPED_UNICODE |
+                JSON_UNESCAPED_SLASHES |
+                JSON_PRETTY_PRINT
+            ) !!}
+        </script>
+    @endif
 @endpush
-
 <div class="place-items-center">
     <div class="container mx-auto mt-10">
-
         <section class="relative overflow-hidden
                     bg-white
                     rounded-[30px]

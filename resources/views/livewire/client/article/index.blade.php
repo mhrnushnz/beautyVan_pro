@@ -1,37 +1,120 @@
 @push('schemas')
-    @foreach($schemas as $schema)
-        <x-schema :data="$schema" />
-    @endforeach
+    {{-- Schema اختصاصی مقاله از پنل مدیریت --}}
+    @if(!empty($schema))
+        <script type="application/ld+json">
+            {!! json_encode(
+                $schema,
+                JSON_UNESCAPED_UNICODE |
+                JSON_UNESCAPED_SLASHES |
+                JSON_PRETTY_PRINT |
+                JSON_HEX_TAG |
+                JSON_HEX_AMP |
+                JSON_HEX_APOS |
+                JSON_HEX_QUOT
+            ) !!}
+        </script>
+    @endif
+
+    {{-- Breadcrumb Schema خودکار --}}
+    @if(!empty($breadcrumbSchema))
+        <script type="application/ld+json">
+            {!! json_encode(
+                $breadcrumbSchema,
+                JSON_UNESCAPED_UNICODE |
+                JSON_UNESCAPED_SLASHES |
+                JSON_PRETTY_PRINT |
+                JSON_HEX_TAG |
+                JSON_HEX_AMP |
+                JSON_HEX_APOS |
+                JSON_HEX_QUOT
+            ) !!}
+        </script>
+    @endif
 @endpush
+
 <div>
     <!-- مسیر  -->
-    <ul class="container mx-auto mt-5 p-1 px-3 rounded-lg flex items-center flex-wrap gap-2 sm:text-[15px] text-[12px]">
-        <li>
-            <a href="{{ route('home') }}" class="hover:text-[#7C3AED] transition-all">خانه</a>
-        </li>
-
-        <span><svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="gray" class="size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg></span>
-
-        <li>
-            <a href="{{ route('articleArchive') }}" class="hover:text-[#7C3AED] transition-all">مجله آموزشی</a>
-        </li>
-
-        @if($articleId)
-            <span><svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="gray" class="size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg></span>
-
+    <nav aria-label="مسیر راهنما" class="container mx-auto mt-5 p-1 px-3">
+        <ol class="flex items-center flex-wrap gap-2 sm:text-[15px] text-[12px]">
+            {{-- خانه --}}
             <li>
-                <a href="{{ route('article_archive', [$articleId->articleCategories->slug]) }}" class="hover:text-[#7C3AED] transition-all">{{$articleId->articleCategories->name}}</a>
+                <a href="{{ route('home') }}" class="hover:text-[#7C3AED] transition-all">خانه</a>
             </li>
 
-            <span><svg width="14" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="gray" class="size-3"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path></svg></span>
+            {{-- فلش --}}
+            <li aria-hidden="true">
+                <svg width="14"
+                     xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="2.5"
+                     stroke="gray"
+                     class="size-3">
 
-            <li>
-                <p class="hover:text-[#7C3AED] transition-all">{{$articleId->title}}</p>
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 19.5 8.25 12l7.5-7.5"/>
+                </svg>
             </li>
-        @endif
+
+            {{-- مجله آموزشی --}}
+            <li>
+                <a href="{{ route('articleArchive') }}" class="hover:text-[#7C3AED] transition-all">مجله آموزشی</a>
+            </li>
+
+            {{-- تمام دسته‌ها از والد اصلی تا دسته مقاله --}}
+            @foreach($categoryBreadcrumbs as $breadcrumbCategory)
+                {{-- فلش --}}
+                <li aria-hidden="true">
+                    <svg width="14"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="2.5"
+                         stroke="gray"
+                         class="size-3">
+
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M15.75 19.5 8.25 12l7.5-7.5"/>
+                    </svg>
+                </li>
+
+                {{-- دسته --}}
+                <li>
+                    <a href="{{ route('article_archive', ['path' => $breadcrumbCategory['path']]) }}" class="hover:text-[#7C3AED] transition-all">
+                        {{ $breadcrumbCategory['name'] }}
+                    </a>
+                </li>
+            @endforeach
+
+            {{-- عنوان مقاله --}}
+            @if($articleId)
+                {{-- فلش --}}
+                <li aria-hidden="true">
+                    <svg width="14"
+                         xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="2.5"
+                         stroke="gray"
+                         class="size-3">
+
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M15.75 19.5 8.25 12l7.5-7.5"/>
+                    </svg>
+                </li>
+
+                {{-- صفحه فعلی --}}
+                <li aria-current="page" class="text-gray-700 font-medium">
+                    <span>{{ $articleId->title }}</span>
+                </li>
+            @endif
+        </ol>
+    </nav>
 
 
-    </ul>
 
     <!-- بدنه سایت -->
     <div class="place-items-center md:mt-5 mt-4">
@@ -57,25 +140,10 @@
 
                     {{-- دسته‌بندی --}}
                     <div class="relative mb-4">
-
-                        <a href="{{ route('article_archive', [$articleId->articleCategories->slug]) }}"
-                           class="group inline-flex items-center gap-2 rounded-full
-                          border border-[#ff528c]/15 bg-[#fff5f8]
-                          px-3.5 py-1.5
-                          text-[12px] font-bold text-[#cf4070]
-                          transition-all duration-300
-                          hover:border-[#ff528c]/30
-                          hover:bg-[#ff528c]
-                          hover:text-white">
-
-                    <span class="size-1.5 rounded-full bg-[#ff528c]
-                                 transition-colors group-hover:bg-white">
-                    </span>
-
+                        <div class="group inline-flex items-center gap-2 rounded-full border border-[#ff528c]/15 bg-[#fff5f8] px-3.5 py-1.5 text-[12px] font-bold text-[#cf4070] transition-all duration-300 hover:border-[#ff528c]/30 hover:bg-[#ff528c]hover:text-white">
+                            <span class="size-1.5 rounded-full bg-[#ff528c] transition-colors group-hover:bg-white"></span>
                             {{ $articleId->articleCategories->name }}
-
-                        </a>
-
+                        </div>
                     </div>
 
 
@@ -85,21 +153,15 @@
                        sm:text-[27px]
                        md:text-[31px]
                        lg:text-[36px] lg:leading-[1.65]">
-
                         {{ $articleId->title }}
-
                     </h1>
 
 
                     {{-- خط کوچک زیر عنوان --}}
                     <div class="mt-4 flex items-center gap-2">
-
                         <span class="h-[3px] w-10 rounded-full bg-[#ff528c]"></span>
-
                         <span class="h-[3px] w-2 rounded-full bg-[#7C3AED]/40"></span>
-
                         <span class="h-[3px] w-1 rounded-full bg-gray-200"></span>
-
                     </div>
 
 
@@ -248,7 +310,6 @@
                                 </svg>
 
                             </div>
-
                             <span>بدون نظر</span>
 
                         </div>
@@ -270,7 +331,7 @@
                            sm:h-[26rem]
                            md:h-[32rem]
                            lg:h-[38rem]
-                           xl:h-[44rem]">
+                           xl:h-[50rem]">
 
                         <img
                             src="{{ asset('storage/' . $articleId->path) }}"
@@ -438,7 +499,7 @@
                    transition-all duration-500
                    hover:-translate-y-1.5">
 
-                        <a href="{{ route('article_client', [$article->slug]) }}"
+                        <a href="{{ route('article_client', ['path' => $article->articleCategories->full_path,'slug' =>$article->slug]) }}"
                            class="relative block h-full overflow-hidden">
 
                             {{-- تصویر --}}

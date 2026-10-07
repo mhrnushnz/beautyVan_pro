@@ -28,6 +28,19 @@
                         {{ $message }}
                     </div>
                     @enderror
+
+
+                    <select wire:model="position" class="border w-full focus:outline-none focus:ring-0 border-gray-100 py-1.5 px-4 rounded-full bg-gray-50 text-gray-400">
+                        <option value="" selected hidden>جایگاه</option>
+                        <option value="top">اسلایدر</option>
+                        <option value="center">پوستر</option>
+                        <option value="bottom">تبلیغات</option>
+                    </select>
+                    @error('position')
+                    <div class="rounded-full bg-red-100 px-3 py-2 text-sm text-red-600">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
 
