@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ManagerSeeder::class,
             articlecategoryseeder::class,
             articlseeder::class,
+            AdvertisementSeeder::class,
         ]);
     }
 }

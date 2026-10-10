@@ -18,6 +18,7 @@
         "@ckeditor/ckeditor5-build-classic": "^41.4.2",
         "@ckeditor/ckeditor5-image": "^48.5.0",
         "@ckeditor/ckeditor5-upload": "^48.5.0",
-        "alpinejs": "^3.15.12"
+        "alpinejs": "^3.15.12",
+        "swiper": "^14.3.0"
     }
 }

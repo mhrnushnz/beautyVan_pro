@@ -11,11 +11,12 @@ return new class extends Migration {
     public function up(): void{
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->string('short_description');
+            $table->string('title')->nullable();
+            $table->string('description')->nullable();
+            $table->string('short_description')->nullable();
             $table->string('path')->nullable();
             $table->enum('position', ['top', 'center', 'bottom'])->default('top');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

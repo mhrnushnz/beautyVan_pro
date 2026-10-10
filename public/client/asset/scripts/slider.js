@@ -1,3 +1,4 @@
+// اسلایدر بالای صفحه-----------------------------------------------------------------------------
 const slider = document.querySelector('.slider');
 if (slider) {
     const slides = slider.querySelectorAll('.slide');
@@ -130,3 +131,10 @@ if (slider) {
     showSlide(currentSlide);
     startSlider();
 }
+
+
+
+
+
+
+// اسلایدر تبلیغات-------------------------------------------------------------------------------

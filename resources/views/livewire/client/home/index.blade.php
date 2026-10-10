@@ -21,10 +21,10 @@
 
     {{-- پوسترهای وسط صفحه --}}
     @if($centerSliders->isNotEmpty())
-        <section class="mx-auto">
+        <section class="mx-auto {{ $centerSliders->count() == 2 ? 'px-3' : 'px-0' }}">
             <div class="grid {{ $centerSliders->count() > 1 ? 'md:grid-cols-2' : 'grid-cols-1' }} gap-3 grid-cols-1gap-4">
                 @foreach($centerSliders as $slider)
-                    <div class=" relative overflow-hidden rounded-2xl xl:h-[28rem] lg:h-[22rem] sm:h-[18rem] h-[16rem] group">
+                    <div class=" relative overflow-hidden xl:h-[28rem] lg:h-[22rem] sm:h-[18rem] h-[16rem] group">
                         <img src="{{ asset('storage/' . $slider->path) }}" alt="{{ $slider->title }}" class=" w-full h-full object-cover">
                         {{-- محتوای روی پوستر --}}
                         <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/50 via-black/10 to-transparent">
@@ -42,7 +42,7 @@
         </section>
     @else
         {{-- پوستر پیش‌فرض --}}
-        <div class="relative overflow-hidden rounded-2xl xl:h-[28rem] lg:h-[22rem] sm:h-[18rem] h-[16rem]">
+        <div class="relative overflow-hidden xl:h-[28rem] lg:h-[22rem] sm:h-[18rem] h-[16rem]">
             <img src="{{ asset('client/asset/pic/7ca0d2c6-43b5-4394-b79d-cf7ab8da2780.png') }}" alt="بیوتی ون" class="w-full h-full object-cover">
         </div>
     @endif
@@ -69,89 +69,30 @@
 
     {{-- تبلیغات پایین صفحه --}}
     @if($bottomSliders->isNotEmpty())
-
-        <section class="container mx-auto px-3">
-
-            <div class="
-            grid
-            lg:grid-cols-4
-            sm:grid-cols-2
-            grid-cols-1
-            gap-4
-        ">
-
-                @foreach($bottomSliders as $slider)
-
-                    <div class="
-                    relative
-                    overflow-hidden
-                    rounded-2xl
-                    lg:h-[220px]
-                    sm:h-[200px]
-                    h-[180px]
-                    group
-                ">
-
-                        <img
-                            src="{{ asset('storage/' . $slider->path) }}"
-                            alt="{{ $slider->title }}"
-                            class="
-                            w-full
-                            h-full
-                            object-cover
-                            transition-transform
-                            duration-500
-                            group-hover:scale-105
-                        "
-                        >
-
-
-                        {{-- اطلاعات تبلیغ --}}
-                        <div class="
-                        absolute
-                        inset-x-0
-                        bottom-0
-                        p-4
-                        bg-gradient-to-t
-                        from-black/60
-                        to-transparent
-                    ">
-
-                            @if($slider->title)
-
-                                <h3 class="
-                                text-white
-                                font-bold
-                                text-[15px]
-                            ">
-                                    {{ $slider->title }}
-                                </h3>
-
-                            @endif
-
-
-                            @if($slider->short_description)
-
-                                <p class="
-                                text-white/80
-                                mt-1
-                                text-[12px]
-                            ">
-                                    {{ $slider->short_description }}
-                                </p>
-
-                            @endif
-
-                        </div>
-
-                    </div>
-
-                @endforeach
-
+        <section class="mx-auto px-3">
+            <div class="w-full h-[18rem] bg-gradient-to-t from-white to-white/0 relative -z-10" style=" background-image: url({{ asset('/client/asset/pic/Group-344902.png')}}); background-position: top;">
+                <svg class="lg:size-30 md:size-30 sm:size-24 size-20 absolute md:-top-10.5 sm:-top-7.5 -top-5.5 xl:start-[47%] lg:start-[45%] md:start-[43%] sm:start-[43%] start-[39%]" xmlns="http://www.w3.org/2000/svg" width="166" height="78" viewBox="0 0 166 78" fill="none"><path d="M44.0908 39C44.0908 60.5391 61.5806 78 83.1553 78C104.73 78 122.22 60.5391 122.22 39C122.22 17.4609 104.73 0 83.1553 0C61.5806 0 44.0908 17.4609 44.0908 39Z" fill="white"></path><path d="M47.2373 55.5859C47.2373 55.5859 43.9739 39.8795 23.7826 39.1465C3.59127 38.4135 42.8218 29.626 42.8218 29.626L47.2373 55.5859Z" fill="white"></path><path d="M110.813 65.6534C120.836 56.2534 131.719 39.6136 158.83 39.2276C185.941 38.8416 118.964 22.6856 118.964 22.6856C118.964 22.6856 100.791 75.0554 110.813 65.6534Z" fill="white"></path><path d="M54.669 65.6535C46.1079 55.4685 33.7635 39.6135 6.65176 39.2275C-20.46 38.8415 46.5175 22.6855 46.5175 22.6855C46.5175 22.6855 63.2301 75.8375 54.669 65.6535Z" fill="white"></path><path d="M74.7413 47.4584L81.8163 52.8917C82.6519 53.5334 84.0191 53.5334 84.8547 52.8917L91.9297 47.4584" fill="#202020"></path><path d="M74.7413 47.4584L81.8163 52.8917C82.6519 53.5334 84.0191 53.5334 84.8547 52.8917L91.9297 47.4584" stroke="#202020" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <h2 class="text-center font_heavy md:text-[30px] sm:text-[26px] text-[24px] text-shadow-md w-full absolute top-18">تبلیغات</h2>
             </div>
+            <div class="container md:-mt-26 -mt-36 relative z-10">
+                <div class="swiper beauty-ads-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach($bottomSliders as $slider)
+                            <div class="swiper-slide">
+                                <a @if(filled($slider->link))
+                                       href="{{ $slider->link }}"
+                                    @endif
+                                    class="{{ blank($slider->link) ? 'cursor-default' : 'cursor-pointer' }} relative block overflow-hidden rounded-2xl xl:h-70 lg:h-50 md:h-50 sm:h-60 h-50 group">
+                                    <img src="{{ asset('storage/' . $slider->path) }}" alt="{{ $slider->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
+
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </section>
-
     @endif
 
 

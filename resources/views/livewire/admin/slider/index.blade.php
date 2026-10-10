@@ -5,13 +5,41 @@
         <!-- عنوان -->
         <h1 class="font-bold text-shadow-md sm:text-[20px] text-[18px]">اسلایدر ها</h1>
         <!-- افزودن -->
-        @if($sliders->count() < 12)
-            <a href="{{ route('adminSliderCreat') }}" class="bg-[#ff528c] text-white rounded-full px-6 py-1.5 sm:text-[16px] text-[12px]">ایجاد اسلایدر</a>
-        @else
-            <span class="text-red-500 font-bold">ظرفیت اسلایدر تکمیل است (11/11)</span>
-        @endif
+
+        <a href="{{ route('adminSliderCreat') }}" class="bg-[#ff528c] text-white rounded-full px-6 py-1.5 sm:text-[16px] text-[12px]">ایجاد اسلایدر</a>
     </div>
 
+    <!-- باکس سرچ -->
+    <form class="relative">
+        <svg class="text-secondary absolute top-2.5 start-3" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="gray"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"></path></svg>
+        <input wire:model.live="search" type="text" class="focus:outline-none focus:ring-0 sm:text-[16px] text-[14px] py-2 px-4 ps-9 rounded-full bg-gray-50 w-full" placeholder="بر اساس عنوان, اسلایدر مورد نظر را جست و جو کنید...">
+    </form>
+
+
+    <!-- فیلترینگ -->
+    <ul class="flex flex-wrap items-center sm:gap-6 gap-3 sm:text-[16px] text-[12px]">
+        <li class="text-gray-600"> مرتب‌سازی بر اساس:</li>
+        <li>
+            <button type="button" wire:click="$set('status', 'all')" class="transition-all hover:-translate-y-0.5 p-2 rounded-md cursor-pointer {{ $status === 'all' ? 'bg-purple-100 text-[#7C3AED] font-bold' : 'hover:text-[#7C3AED]' }}">همه</button>
+        </li>
+        <li>
+            <button type="button" wire:click="$set('status', 'top')" class="transition-all hover:-translate-y-0.5 p-2 rounded-md cursor-pointer {{ $status === 'top' ? 'bg-purple-100 text-[#7C3AED] font-bold' : 'hover:text-[#7C3AED]' }}">
+                اسلایدر
+            </button>
+        </li>
+
+        <li>
+            <button type="button" wire:click="$set('status', 'center')" class="transition-all hover:-translate-y-0.5 p-2 rounded-md cursor-pointer {{ $status === 'center' ? 'bg-purple-100 text-[#7C3AED] font-bold' : 'hover:text-[#7C3AED]' }}">
+                پوستر
+            </button>
+        </li>
+
+        <li>
+            <button type="button" wire:click="$set('status', 'bottom')" class="transition-all hover:-translate-y-0.5 p-2 rounded-md cursor-pointer {{ $status === 'bottom' ? 'bg-purple-100 text-[#7C3AED] font-bold' : 'hover:text-[#7C3AED]' }}">
+                تبلیغات
+            </button>
+        </li>
+    </ul>
 
     <!-- جدول -->
     <div class="overflow-x-auto">
@@ -33,7 +61,7 @@
 
             @if($sliders->count() == 0)
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg" width="180" height="135"
                              viewBox="0 0 180 135">
                             <defs>
@@ -111,9 +139,27 @@
                     <tr class="text-gray-500">
                         <td class="text-center border border-gray-300 p-3">{{$loop->index+1}}</td>
                         <td width="100" height="100" class="text-center w-1/5 border border-gray-300 p-1.5"><img src="{{ asset('storage/' . $slider->path) }}" alt="#" class="mx-auto w-full h-full object-cover rounded-md"></td>
-                        <td class="text-center p-3 border border-gray-300">{{$slider->title}}</td>
-                        <td class="text-center p-3 border border-gray-300"> {{ \Illuminate\Support\Str::limit(strip_tags($slider->description), 34) }}</td>
-                        <td class="text-center p-3 border border-gray-300"> {{ \Illuminate\Support\Str::limit(strip_tags($slider->short_description), 34) }}</td>
+                        <td class="text-center p-3 border border-gray-300">
+                            @if(!is_null($slider->title))
+                                {{$slider->title}}
+                            @else
+                                ...
+                            @endif
+                        </td>
+                        <td class="text-center p-3 border border-gray-300">
+                            @if(!is_null($slider->description))
+                                {{ \Illuminate\Support\Str::limit(strip_tags($slider->description), 34) }}
+                            @else
+                                ...
+                            @endif
+                        </td>
+                        <td class="text-center p-3 border border-gray-300">
+                            @if(!is_null($slider->short_description))
+                                {{ \Illuminate\Support\Str::limit(strip_tags($slider->short_description), 34) }}</td>
+                            @else
+                                ...
+                            @endif
+
                         <td class="text-center p-3 border border-gray-300">
                             @if($slider->position === 'top')
                                 اسلایدر
@@ -131,4 +177,67 @@
             </tbody>
         </table>
     </div>
+
+
+    <!-- تب بندی -->
+    <nav class="flex justify-center items-center gap-2 mt-8">
+        {{-- قبلی --}}
+        @if ($sliders->onFirstPage())
+            <span class="px-4 py-2 rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed">
+            قبلی
+        </span>
+        @else
+            <button
+                wire:click="previousPage"
+                class="px-4 py-2 rounded-lg bg-white hover:bg-gray-100">
+                قبلی
+            </button>
+        @endif
+
+        {{-- صفحه اول --}}
+        <button
+            wire:click="gotoPage(1)"
+            class="px-4 py-2 rounded-lg {{ $sliders->currentPage() == 1 ? 'bg-[#A855F7] text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }}">
+            1
+        </button>
+
+        {{-- سه نقطه اول --}}
+        @if($sliders->currentPage() > 3)
+            <span class="px-2">...</span>
+        @endif
+
+        {{-- صفحات اطراف صفحه فعلی --}}
+        @for($i = max(2, $sliders->currentPage() - 1); $i <= min($sliders->lastPage() - 1, $sliders->currentPage() + 1); $i++)
+            <button
+                wire:click="gotoPage({{ $i }})"
+                class="px-4 py-2 rounded-lg {{ $sliders->currentPage() == $i ? 'bg-[#A855F7] text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }}">
+                {{ $i }}
+            </button>
+        @endfor
+
+        {{-- سه نقطه آخر --}}
+        @if($sliders->currentPage() < $sliders->lastPage() - 2)
+            <span class="px-2">...</span>
+        @endif
+
+        {{-- صفحه آخر --}}
+        @if($sliders->lastPage() > 1)
+            <button
+                wire:click="gotoPage({{ $sliders->lastPage() }})"
+                class="px-4 py-2 rounded-lg {{ $sliders->currentPage() == $sliders->lastPage() ? 'bg-[#A855F7] text-white' : 'bg-white text-gray-700 hover:bg-gray-100' }}">
+                {{ $sliders->lastPage() }}
+            </button>
+        @endif
+
+        {{-- بعدی --}}
+        @if ($sliders->hasMorePages())
+            <button wire:click="nextPage" class="px-4 py-2 rounded-lg bg-white hover:bg-gray-100">
+                بعدی
+            </button>
+        @else
+            <span class="px-4 py-2 rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed">
+            بعدی
+        </span>
+        @endif
+    </nav>
 </div>

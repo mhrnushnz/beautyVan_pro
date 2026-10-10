@@ -1,5 +1,5 @@
 <div>
-    <div class="relative lg:-mt-14 -mt-5 z-20">
+    <div class="relative xl:mt-1 lg:-mt-14 -mt-5 z-20">
         <div class="mx-auto lg:w-[75%] md:w-[90%] sm:w-[92%] w-[95%]">
 
             <ul class="grid grid-cols-4 lg:gap-6 md:gap-4 sm:gap-3 gap-2">
