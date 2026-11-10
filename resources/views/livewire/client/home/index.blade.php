@@ -84,8 +84,6 @@
                                     @endif
                                     class="{{ blank($slider->link) ? 'cursor-default' : 'cursor-pointer' }} relative block overflow-hidden rounded-2xl xl:h-70 lg:h-50 md:h-50 sm:h-60 h-50 group">
                                     <img src="{{ asset('storage/' . $slider->path) }}" alt="{{ $slider->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-
-
                                 </a>
                             </div>
                         @endforeach

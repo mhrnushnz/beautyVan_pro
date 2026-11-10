@@ -43,7 +43,7 @@ class Index extends Component{
         | علاوه بر slug مقاله، بررسی می‌کنیم مقاله واقعاً متعلق
         | به آخرین دسته موجود در URL باشد.*/
 
-        $article = Article::query()->with(['articleCategories','admin',])->where('slug', $slug)
+        $article = Article::query()->with(['articleCategories'])->where('slug', $slug)
             ->where('status', 'published')
             ->where('article_category_id', $category->id)
             ->firstOrFail();
@@ -64,7 +64,7 @@ class Index extends Component{
     public function seoHandeler($article){
         $category = $article->articleCategories;
         SeoService::set(
-            title: $article->seo_title ?? $article->title,
+            title: $article->meta_title ?: $article->title,
             description: $article->meta_description,
             canonical: route('article_client', ['path' => $category->full_path, 'slug' => $article->slug,]),
             image: $article->path ? asset('storage/' . $article->path) : null,

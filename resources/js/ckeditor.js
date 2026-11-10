@@ -22,13 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 ui: 'fa',
                 content: 'fa'
             },
+            heading: {
+                options: [
+                    {
+                        model: 'paragraph',
+                        title: 'متن معمولی',
+                        class: 'ck-heading_paragraph'
+                    },
+                    {
+                        model: 'heading1',
+                        view: 'h1',
+                        title: 'H1',
+                        class: 'ck-heading_heading1'
+                    },
+                    {
+                        model: 'heading2',
+                        view: 'h2',
+                        title: 'H2',
+                        class: 'ck-heading_heading2'
+                    },
+                    {
+                        model: 'heading3',
+                        view: 'h3',
+                        title: 'H3',
+                        class: 'ck-heading_heading3'
+                    }
+                ]
+            },
             extraPlugins: [
                 MyCustomUploadAdapterPlugin
             ]
         })
         .then(editor => {
 
-            console.log('CKEditor loaded successfully');
+            console.log('Heading options:', editor.config.get('heading.options'));
 
             // تصاویر موجود در محتوای فعلی
             let previousImages = getImageUrls(editor.getData());

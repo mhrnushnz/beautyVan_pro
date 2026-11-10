@@ -20,11 +20,12 @@ class Article extends Model{
             ['id' => $articleId
             ], [
                 'title' => $validatedData['title'],
-                'admin_id' => Auth::id(),
+                'author' => $validatedData['author'],
                 'content' => $validatedData['description'],
                 'article_category_id' => $validatedData['article_category'],
                 'slug' => $validatedData['slug'],
                 'status' => $validatedData['status'],
+                'meta_title'=> $validatedData['meta_title'],
                 'meta_description'=> $validatedData['meta_description'],
                 'focus_keyword' => $validatedData['focus_keyword'],
                 'secondary_keywords' => $validatedData['secondary_keywords'],
@@ -45,9 +46,6 @@ class Article extends Model{
         });
     }
 
-    public function admin(){
-        return $this->belongsTo(User::class, 'admin_id');
-    }
 
     public function articleCategories(){
         return $this->belongsTo(ArticleCategory::class, 'article_category_id');

@@ -32,6 +32,7 @@
     @endif
 @endpush
 
+
 <div>
     <!-- مسیر  -->
     <nav aria-label="مسیر راهنما" class="container mx-auto mt-5 p-1 px-3">
@@ -202,7 +203,7 @@
                                 <span class="text-gray-400">نویسنده</span>
 
                                 <span class="ms-1 font-bold text-gray-600">
-                            {{ $articleId->admin->name }}
+                            {{ $articleId->author }}
                         </span>
                             </div>
 
@@ -386,36 +387,22 @@
 
                     {{-- خط بالای محتوا --}}
                     <div class="mb-8 flex items-center gap-3">
-
                         <div class="h-px flex-1 bg-gradient-to-l from-gray-100 to-transparent"></div>
-
                         <div class="size-1.5 rounded-full bg-[#ff528c]/50"></div>
-
                         <div class="h-px flex-1 bg-gradient-to-r from-gray-100 to-transparent"></div>
-
                     </div>
 
 
                     {{-- محتوای CKEditor --}}
-                    <div class="article-content
-                        mx-auto w-full
-                        text-[14px] leading-[2.15] text-gray-600
-                        sm:text-[16px] sm:leading-[2.2]
-                        lg:w-[94%]
-                        lg:text-[17px] lg:leading-[2.25]">
-
+                    <div class="article-content mx-auto w-full">
                         {!! $articleId->content !!}
-
                     </div>
 
 
                     {{-- پایان مقاله --}}
                     <div class="mt-12 border-t border-gray-100 pt-6">
-
                         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
                             <div class="flex items-center gap-3">
-
                                 <div class="flex size-10 items-center justify-center
                                     rounded-xl bg-[#fff1f6] text-[#ff528c]">
 

@@ -57,7 +57,34 @@
                     <div class="rounded-full mt-2 bg-red-100 px-3 py-2 text-sm text-red-600">{{ $message }}</div>
                     @enderror
                 </div>
+
+
+                {{--   عنوان متا   --}}
+                <div>
+                    <input name="meta_title" wire:model="meta_title" type="text" placeholder="عنوان متا" class="border w-full focus:outline-none focus:ring-0 border-gray-100 py-1.5 px-4 rounded-full bg-gray-50 text-gray-600">
+                    @error('meta_title')
+                    <div class="rounded-full mt-2 bg-red-100 px-3 py-2 text-sm text-red-600">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
+
+                {{--   نویسنده   --}}
+                <div>
+                    <input name="author" wire:model="author" type="text" placeholder="نویسنده" class="border w-full focus:outline-none focus:ring-0 border-gray-100 py-1.5 px-4 rounded-full bg-gray-50 text-gray-600">
+                    @error('author')
+                    <div class="rounded-full mt-2 bg-red-100 px-3 py-2 text-sm text-red-600">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
             </div>
+
+
+
+
+
 
             {{--      توضیحات متا      --}}
             <textarea rows="3" placeholder="توضیحات متا" wire:model="meta_description" name="meta_description" class="w-full border focus:outline-none focus:ring-0 border-gray-100 py-1 px-4 rounded-2xl bg-gray-50 text-gray-500"></textarea>

@@ -19,7 +19,6 @@
         src: url("../fonts/FaNum/Yekan-Bakh-FaNum-08-Fat.woff") format("woff");
     }
 }
-
 :root{
     font-family: "Yekan Bakh Medium", sans-serif;
     color: var(--text);
@@ -63,7 +62,7 @@
 /*استایل عنوان های h1...h6 مقاله */
 .article-content {
     direction: rtl;
-    text-align: right;
+    text-align: justify;
     line-height: 2;
 }
 .article-content p {
@@ -76,23 +75,23 @@
     line-height: 1.5;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    color: #111827;
+    color: #432d69;
 }
 .article-content h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 800;
     line-height: 1.6;
     margin-top: 2.25rem;
     margin-bottom: 1rem;
-    color: #111827;
+    color: #432d69;
 }
 .article-content h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.7;
+    font-size: 1.18rem;
+    font-weight: 800;
+    line-height: 1.8;
     margin-top: 1.75rem;
-    margin-bottom: 0.75rem;
-    color: #1f2937;
+    margin-bottom: 0.85rem;
+    color: #432d69;
 }
 .article-content img {
     max-width: 100%;
@@ -124,3 +123,77 @@
     background: #f9fafb;
     border-radius: 0.75rem;
 }
+
+
+/*استایل های جدول مقاله*/
+.article-content figure.table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 32px auto;
+    overflow-x: auto;
+    border: 1px solid #eee7fa;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 35px rgba(124, 58, 237, .10);
+    -webkit-overflow-scrolling: touch;
+}
+.article-content figure.table > table {
+    width: 100%;
+    min-width: 680px;
+    margin: 0;
+    border: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    direction: rtl;
+}
+.article-content figure.table td,
+.article-content figure.table th {
+    padding: 16px 18px;
+    border: 0;
+    border-bottom: 1px solid #f0ebf7;
+    font-size: 14px;
+    line-height: 2;
+    text-align: right;
+    vertical-align: middle;
+    color: #374151;
+}
+.article-content figure.table tr:first-child > td,
+.article-content figure.table tr:first-child > th {
+    background: linear-gradient(110deg, #F5B8C5  ,#f1aeb5 );
+    color: white;
+    font-weight: 700;
+    border-bottom: 0;
+}
+.article-content figure.table tbody tr:nth-child(even):not(:first-child) td {
+    background: #faf8ff;
+}
+.article-content figure.table tbody tr:not(:first-child):hover td {
+    background: #f3eaff;
+}
+.article-content figure.table tbody tr:last-child td {
+    border-bottom: 0;
+}
+.article-content figure.table td p {
+    margin: 0;
+}
+@media (max-width: 768px) {
+    .article-content figure.table {
+        border-radius: 12px;
+    }
+    .article-content figure.table td,
+    .article-content figure.table th {
+        padding: 12px 14px;
+        font-size: 12px;
+    }
+    .article-content h1 {
+        font-size: 1.4rem;
+    }
+    .article-content h2 {
+        font-size: 1.2rem;
+    }
+    .article-content h3 {
+        font-size: 1rem;
+    }
+}
+

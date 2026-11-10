@@ -14,6 +14,8 @@ class Create extends Component{
     //تو پنل هستن
     public $title;
     public $slug;
+    public $author;
+    public $meta_title;
     public $meta_description;
     public $article_category ;
     public $article_categories = [];
@@ -51,9 +53,11 @@ class Create extends Component{
             $this->articleId = $this->article->id;
             $this->title = $this->article->title;
             $this->slug = $this->article->slug;
+            $this->author = $this->article->author;
             $this->article_category = $this->article->article_category_id;
             $this->description = $this->article->content;
             $this->status = $this->article->status;
+            $this->meta_title = $this->article->meta_title;
             $this->meta_description = $this->article->meta_description;
             $this->editImage = $this->article->path;     //path از نوع رشته است برای همین نمیتونیم از $this->image استفاده کنیم
             $this->focus_keyword = $this->article->focus_keyword;
@@ -81,9 +85,11 @@ class Create extends Component{
         $rules = [
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
+            'author' => 'required|string|max:150',
             'article_category' => 'required|exists:article_categories,id',
             'description' => 'required|string',
             'status' => 'required|in:published,draft',
+            'meta_title' => 'required|string|max:150',
             'meta_description' => 'string|max:200',
             'focus_keyword' => 'nullable|string|max:255',
             'secondary_keywords_text' => 'nullable|string|max:1000',
@@ -96,26 +102,22 @@ class Create extends Component{
                         $fail('اسکیما باید دارای @context باشد.');
                         return;
                     }
-
                     // بررسی مقدار @context
                     if ($schemaData['@context'] !== 'https://schema.org') {
                         $fail('@context باید برابر https://schema.org باشد.');
                         return;
                     }
-
                     // باید حداقل @type یا @graph داشته باشیم
                     if (!isset($schemaData['@type']) && !isset($schemaData['@graph'])) {
                         $fail('اسکیما باید دارای @type یا @graph باشد.');
                         return;
                     }
-
                     // اگر @graph وجود دارد، باید آرایه باشد
                     if (isset($schemaData['@graph'])) {
                         if (!is_array($schemaData['@graph'])) {
                             $fail('@graph باید یک آرایه باشد.');
                             return;
                         }
-
                         // @graph نباید خالی باشد
                         if (empty($schemaData['@graph'])) {
                             $fail('@graph نباید خالی باشد.');
@@ -127,7 +129,6 @@ class Create extends Component{
         ];
 
 
-
         // اگر در حالت create هستیم برا ولیدیشن تصویر:
         if (!$this->articleId) {
             $rules['image'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
@@ -136,7 +137,6 @@ class Create extends Component{
         if ($this->articleId && $this->removeImage && !$this->image) {
             $rules['image'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
         }
-
         $validatedData = $this->validate($rules, [
             'schema.json' => 'اسکیما وارد شده معتبر نیست. لطفاً ساختار JSON را بررسی کنید.',
             '*.required' => 'پر کردن فیلد الزامی می باشد',
@@ -147,7 +147,6 @@ class Create extends Component{
             'focus_keyword.max' =>'حداکثر تعداد کاراکتر ها 255 است',
             '*.string' =>'فرمت نامعتبر است',
         ]);
-
         $validatedData['secondary_keywords'] = $this->secondary_keywords;
         $validatedData['focus_keyword'] = $this->focus_keyword;
         $validatedData['robots'] = $this->robots;
@@ -161,7 +160,7 @@ class Create extends Component{
 
         $articleModel = new Article();
         $articleModel->submit($validatedData, $this->articleId, $this->image, $this->editImage);
-        $this->reset(['title','slug','article_category','description','image','meta_description','focus_keyword','secondary_keywords_text','robots']);
+        $this->reset(['title','slug','author','article_category','description','image','meta_title','meta_description','focus_keyword','secondary_keywords_text','robots']);
         $this->removeImage = false;
         session()->flash('toast', ['type' => 'success', 'message' => 'با موفقیت ثبت شد']);
         return $this->redirect(route('article_admin'));
@@ -216,6 +215,7 @@ class Create extends Component{
         $article->title = $this->title;
         $article->slug = $this->slug;
         $article->content = $this->description;
+        $article->meta_title = $this->meta_title;
         $article->meta_description = $this->meta_description;
         $article->focus_keyword = $this->focus_keyword;
         $article->secondary_keywords = $this->secondary_keywords;
@@ -228,6 +228,7 @@ class Create extends Component{
         $seoFields = [
             'title',
             'slug',
+            'meta_title',
             'meta_description',
             'focus_keyword',
             'secondary_keywords',

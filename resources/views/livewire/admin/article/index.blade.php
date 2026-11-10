@@ -143,7 +143,7 @@
                         </td>
                         <td class="text-center p-3 border border-gray-300 truncate-char">{{$article->title}}</td>
                         <td class="text-center p-3 border border-gray-300">{{$article->articleCategories->name}}</td>
-                        <td class="text-center p-3 border border-gray-300">{{$article->admin->name}}</td>
+                        <td class="text-center p-3 border border-gray-300">{{$article->author}}</td>
                         <td class="text-center p-3 border border-gray-300">{{$article->status == 'draft'? 'پیش نویس' : 'منتشر شده'}}</td>
                         <td class="text-center p-3 border border-gray-300">{{$article->updated_at ? $article->updated_at->diffForHumans() : '-' }}</td>
                         <td class="text-center p-3 border border-gray-300">

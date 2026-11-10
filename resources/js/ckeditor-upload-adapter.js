@@ -13,7 +13,7 @@ export default class MyUploadAdapter {
 
                 this.xhr = new XMLHttpRequest();
 
-                this.xhr.open('POST', '/ckeditor/upload', true);
+                this.xhr.open('POST', '/p-admin/ckeditor/upload', true);
 
                 this.xhr.setRequestHeader(
                     'X-CSRF-TOKEN',

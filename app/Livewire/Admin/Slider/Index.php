@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
 class Index extends Component{
     use WithPagination;
     public $search = '';
@@ -35,11 +36,9 @@ class Index extends Component{
         $sliders = Slider::query()
             ->when($this->search, function ($q) {
                 $q->where('title', 'like', '%' . $this->search . '%');
-            })
-            ->when(in_array($this->status, ['top', 'center', 'bottom'], true), function ($q) {
+            })->when(in_array($this->status, ['top', 'center', 'bottom'], true), function ($q) {
                 $q->where('position', $this->status);
-            })
-            ->latest()
+            })->latest()
             ->paginate(10);
         return view('livewire.admin.slider.index', compact('sliders'))->layout('layouts.admin.app');
     }

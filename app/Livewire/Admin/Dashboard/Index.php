@@ -124,7 +124,6 @@ class Index extends Component
 
         $this->article = Article::query()
             ->where('status', 'published')
-            ->where('admin_id', Auth::id())
             ->count();
 
 

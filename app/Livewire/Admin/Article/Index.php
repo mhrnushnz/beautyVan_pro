@@ -48,12 +48,25 @@ class Index extends Component{
     }
 
 
-    public function render(){
-        $articles = Article::with(['admin', 'articleCategories'])->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%');
-            })->when($this->status !== 'all', function ($query) {
+    public function render()
+    {
+        $articles = Article::with('articleCategories')
+            ->when($this->search, function ($query) {
+                $query->where(
+                    'title',
+                    'like',
+                    '%' . $this->search . '%'
+                );
+            })
+            ->when($this->status !== 'all', function ($query) {
                 $query->where('status', $this->status);
-            })->latest()->paginate(10);
+            })
+            ->latest()
+            ->paginate(10);
 
-        return view('livewire.admin.article.index', compact('articles'))->layout('layouts.admin.app');}
+        return view(
+            'livewire.admin.article.index',
+            compact('articles')
+        )->layout('layouts.admin.app');
+    }
 }

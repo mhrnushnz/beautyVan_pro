@@ -106,23 +106,51 @@
 
 
 /* =========================
-   HEADINGS
+   CKEDITOR HEADINGS
 ========================= */
 
+.ck-content h1 {
+    font-family: "Yekan Bakh Heavy", sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.6;
+    color: #111827;
+    margin: 30px 0 18px;
+}
+
 .ck-content h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-top: 24px;
-    margin-bottom: 12px;
+    font-family: "Yekan Bakh Heavy", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.7;
+    color: #1f2937;
+    margin: 26px 0 14px;
 }
 
 .ck-content h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    font-family: "Yekan Bakh Heavy", sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.8;
+    color: #374151;
+    margin: 22px 0 12px;
 }
 
+.ck-content h4 {
+    font-family: "Yekan Bakh Medium", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.8;
+    color: #4b5563;
+    margin: 18px 0 10px;
+}
+
+.ck-content p {
+    font-family: "Yekan Bakh Medium", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 2;
+}
 
 /* =========================
    IMAGES

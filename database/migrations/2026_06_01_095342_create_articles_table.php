@@ -11,11 +11,12 @@ return new class extends Migration{
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('article_category_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('admin_id')->constrained('users')->cascadeOnDelete();
+            $table->string('author');
             $table->string('title');
             $table->string('slug');
             $table->longText('content');
             $table->string('path')->nullable();
+            $table->string('meta_title');
             $table->longText('meta_description');
             $table->enum('status', ['published', 'draft'])->default('draft');
             $table->string('focus_keyword')->nullable();
